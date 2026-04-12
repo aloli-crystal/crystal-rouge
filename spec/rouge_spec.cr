@@ -173,6 +173,206 @@ describe Rouge::Themes::Github do
   end
 end
 
+describe Rouge::Lexers::SQL do
+  it "tokenizes keywords" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("SELECT * FROM users WHERE id = 1")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "SELECT" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "FROM" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "WHERE" }.should be_true
+  end
+
+  it "tokenizes case-insensitive keywords" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("select from where")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "select" }.should be_true
+  end
+
+  it "tokenizes types" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("INTEGER VARCHAR BOOLEAN")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::KeywordType && val == "INTEGER" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::KeywordType && val == "VARCHAR" }.should be_true
+  end
+
+  it "tokenizes strings" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("'hello world'")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::StrSingle }.should be_true
+  end
+
+  it "tokenizes numbers" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("42 3.14")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumInteger && val == "42" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumFloat && val == "3.14" }.should be_true
+  end
+
+  it "tokenizes single-line comments" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("-- this is a comment")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::CommentSingle }.should be_true
+  end
+
+  it "tokenizes multiline comments" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("/* comment */")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::CommentMultiline }.should be_true
+  end
+
+  it "tokenizes operators and punctuation" do
+    lexer = Rouge::Lexers::SQL.new
+    tokens = lexer.lex("a = 1;")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::Operator }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Punctuation && val == ";" }.should be_true
+  end
+
+  it "can be found by tag" do
+    lexer = Rouge::RegexLexer.find("sql")
+    lexer.should_not be_nil
+    lexer.should be_a(Rouge::Lexers::SQL)
+  end
+end
+
+describe Rouge::Lexers::Shell do
+  it "tokenizes keywords" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("if true; then echo hi; fi")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "if" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "then" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "fi" }.should be_true
+  end
+
+  it "tokenizes builtins" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("echo hello")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NameBuiltin && val == "echo" }.should be_true
+  end
+
+  it "tokenizes comments" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("# this is a comment")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::CommentSingle }.should be_true
+  end
+
+  it "tokenizes double-quoted strings" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex(%("hello world"))
+    tokens.any? { |tok, _| tok == Rouge::Tokens::StrDouble }.should be_true
+  end
+
+  it "tokenizes single-quoted strings" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("'hello world'")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::StrSingle }.should be_true
+  end
+
+  it "tokenizes variables" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("$HOME ${PATH} $0 $?")
+    vars = tokens.select { |tok, _| tok == Rouge::Tokens::NameVariable }
+    vars.size.should be >= 3
+  end
+
+  it "tokenizes operators" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("a && b || c | d")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Operator && val == "&&" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Operator && val == "||" }.should be_true
+  end
+
+  it "tokenizes numbers" do
+    lexer = Rouge::Lexers::Shell.new
+    tokens = lexer.lex("42")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumInteger && val == "42" }.should be_true
+  end
+
+  it "can be found by multiple tags" do
+    %w(shell bash sh zsh).each do |tag|
+      lexer = Rouge::RegexLexer.find(tag)
+      lexer.should_not be_nil
+      lexer.should be_a(Rouge::Lexers::Shell)
+    end
+  end
+end
+
+describe Rouge::Lexers::Crystal do
+  it "tokenizes keywords" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("def foo; end")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "def" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::Keyword && val == "end" }.should be_true
+  end
+
+  it "tokenizes constants" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("true false nil")
+    consts = tokens.select { |tok, _| tok == Rouge::Tokens::KeywordConstant }
+    consts.size.should eq(3)
+  end
+
+  it "tokenizes builtin types" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("Int32 String Array")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NameBuiltin && val == "Int32" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NameBuiltin && val == "String" }.should be_true
+  end
+
+  it "tokenizes strings with interpolation" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex(%("hello \#{name}"))
+    tokens.any? { |tok, _| tok == Rouge::Tokens::StrDouble }.should be_true
+    tokens.any? { |tok, _| tok == Rouge::Tokens::StrInterpol }.should be_true
+  end
+
+  it "tokenizes comments" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("# a comment")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::CommentSingle }.should be_true
+  end
+
+  it "tokenizes symbols" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex(":hello")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::StrSymbol && val == ":hello" }.should be_true
+  end
+
+  it "tokenizes numbers" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("42 3.14 0xff 0b1010 0o77")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumInteger && val == "42" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumFloat && val == "3.14" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumHex && val == "0xff" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumBin && val == "0b1010" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NumOct && val == "0o77" }.should be_true
+  end
+
+  it "tokenizes instance variables" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("@name @@count")
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NameVariableInstance && val == "@name" }.should be_true
+    tokens.any? { |tok, val| tok == Rouge::Tokens::NameVariableClass && val == "@@count" }.should be_true
+  end
+
+  it "tokenizes annotations" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("@[JSON::Field]")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::NameDecorator }.should be_true
+  end
+
+  it "tokenizes operators" do
+    lexer = Rouge::Lexers::Crystal.new
+    tokens = lexer.lex("a + b == c")
+    tokens.any? { |tok, _| tok == Rouge::Tokens::Operator }.should be_true
+  end
+
+  it "can be found by tag" do
+    lexer = Rouge::RegexLexer.find("crystal")
+    lexer.should_not be_nil
+    lexer.should be_a(Rouge::Lexers::Crystal)
+  end
+end
+
 describe Rouge do
   it "highlights JSON with convenience method" do
     html = Rouge.highlight(%({"key": 42}), "json")
