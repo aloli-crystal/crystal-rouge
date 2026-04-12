@@ -1,0 +1,78 @@
+= crystal-rouge
+:toc: left
+:toclevels: 2
+
+Pure Crystal syntax highlighter, port of the https://github.com/rouge-ruby/rouge[Rouge] Ruby gem. Compatible with Pygments token types and Rouge CSS classes.
+
+link:README.fr.adoc[Version française]
+
+== Features
+
+* Tokenization engine (RegexLexer) with stack-based state machine
+* 14 language lexers
+* HTML formatter with CSS class names compatible with Rouge/Pygments
+* GitHub CSS theme included
+* Single-function API: `Rouge.highlight(code, "language")`
+
+== Supported Languages
+
+[cols="2,2"]
+|===
+| Language | Tag(s)
+
+| C | `c`
+| Crystal | `crystal`
+| CSS | `css`
+| Go | `go`, `golang`
+| HTML | `html`
+| JSON | `json`
+| JavaScript | `javascript`, `js`
+| Python | `python`, `py`
+| Ruby | `ruby`, `rb`
+| Rust | `rust`, `rs`
+| SQL | `sql`
+| Shell/Bash | `shell`, `bash`, `sh`, `zsh`
+| TypeScript | `typescript`, `ts`
+| YAML | `yaml`, `yml`
+|===
+
+== Installation
+
+[source,yaml]
+----
+dependencies:
+  crystal-rouge:
+    github: aloli-crystal/crystal-rouge
+    version: "~> 0.1"
+----
+
+== Usage
+
+[source,crystal]
+----
+require "rouge"
+
+# Highlight code to HTML
+html = Rouge.highlight("SELECT * FROM users", "sql")
+
+# Or step by step
+lexer  = Rouge::RegexLexer.find("crystal").not_nil!
+tokens = lexer.lex("puts \"Hello, World!\"")
+html   = Rouge::Formatters::HTML.new.format_wrapped(tokens)
+
+# Get CSS for the GitHub theme
+css = Rouge::Themes::Github.render(scope: ".highlight")
+----
+
+== Tests
+
+[source,bash]
+----
+crystal spec
+----
+
+153 examples, 0 failures.
+
+== License
+
+MIT
