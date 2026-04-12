@@ -1,0 +1,19 @@
+name: crystal-rouge
+version: 0.1.0
+
+description: |
+  Pure Crystal syntax highlighter, port of the Rouge Ruby gem.
+  Provides a tokenization engine (RegexLexer), HTML formatter, and CSS themes.
+  Compatible with Pygments token types and Rouge CSS classes.
+
+authors:
+  - Philippe Nénert <philippe@aloli.fr>
+
+license: MIT
+
+crystal: ">= 1.19.0"
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    version: "~> 1.6"
