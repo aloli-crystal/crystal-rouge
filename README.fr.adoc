@@ -9,7 +9,7 @@ link:README.adoc[English version]
 == Fonctionnalités
 
 * Moteur de tokenisation (RegexLexer) avec machine à états à pile
-* 119 lexers de langages
+* 233 lexers de langages (couverture complète de Rouge 4.7.0)
 * Formatter HTML avec classes CSS compatibles Rouge/Pygments
 * Thème CSS GitHub inclus
 * API simple : `Rouge.highlight(code, "langage")`
@@ -96,7 +96,7 @@ css = Rouge::Themes::Github.render(scope: ".highlight")
 crystal spec
 ----
 
-564 exemples, 0 échecs.
+792 exemples, 0 échecs.
 
 == Licence
 
