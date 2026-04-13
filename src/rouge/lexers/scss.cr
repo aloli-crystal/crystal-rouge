@@ -150,6 +150,5 @@ module Rouge
     end
 
     RegexLexer.register("scss", SCSS)
-    RegexLexer.register("sass", SCSS)
   end
 end

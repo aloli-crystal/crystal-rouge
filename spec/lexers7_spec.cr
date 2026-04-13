@@ -188,7 +188,7 @@ describe Rouge::Lexers::SCSS do
 
     lexer2 = Rouge::RegexLexer.find("sass")
     lexer2.should_not be_nil
-    lexer2.should be_a(Rouge::Lexers::SCSS)
+    lexer2.should be_a(Rouge::Lexers::SassLexer)
   end
 
   it "tokenizes variables" do
