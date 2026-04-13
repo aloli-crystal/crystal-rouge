@@ -7,6 +7,9 @@ require "./rouge/lexers/*"
 module Rouge
   VERSION = "0.1.0"
 
+  # Version de la gem Ruby Rouge utilisée comme référence pour le portage.
+  UPSTREAM_VERSION = "4.7.0"
+
   # Convenience: highlight source code to HTML
   def self.highlight(source : String, lexer_tag : String, css_class : String = "highlight") : String
     lexer = RegexLexer.find(lexer_tag)
