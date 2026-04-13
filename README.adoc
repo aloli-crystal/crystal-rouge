@@ -9,7 +9,7 @@ link:README.fr.adoc[Version française]
 == Features
 
 * Tokenization engine (RegexLexer) with stack-based state machine
-* 24 language lexers
+* 39 language lexers
 * HTML formatter with CSS class names compatible with Rouge/Pygments
 * GitHub CSS theme included
 * Single-function API: `Rouge.highlight(code, "language")`
@@ -23,10 +23,15 @@ link:README.fr.adoc[Version française]
 | C | `c`
 | Crystal | `crystal`
 | CSS | `css`
+| Dart | `dart`
 | Diff | `diff`, `patch`
 | Dockerfile | `dockerfile`, `docker`
+| Elixir | `elixir`, `ex`
 | Go | `go`, `golang`
+| GraphQL | `graphql`
+| Haskell | `haskell`, `hs`
 | HTML | `html`
+| INI | `ini`, `cfg`, `properties`
 | Java | `java`
 | JavaScript | `javascript`, `js`
 | JSON | `json`
@@ -34,16 +39,26 @@ link:README.fr.adoc[Version française]
 | Lua | `lua`
 | Makefile | `makefile`, `make`
 | Markdown | `markdown`, `md`
+| Nginx | `nginx`
+| Perl | `perl`, `pl`
 | PHP | `php`
+| PowerShell | `powershell`, `posh`, `ps1`
+| Protobuf | `protobuf`, `proto`
 | Python | `python`, `py`
+| R | `r`, `R`, `rlang`
 | Ruby | `ruby`, `rb`
 | Rust | `rust`, `rs`
-| SQL | `sql`
+| Scala | `scala`
+| SCSS | `scss`, `sass`
 | Shell/Bash | `shell`, `bash`, `sh`, `zsh`
+| SQL | `sql`
+| Swift | `swift`
+| Terraform | `terraform`, `tf`, `hcl`
 | TOML | `toml`
 | TypeScript | `typescript`, `ts`
 | XML | `xml`
 | YAML | `yaml`, `yml`
+| Zig | `zig`
 |===
 
 == Installation
@@ -81,7 +96,7 @@ css = Rouge::Themes::Github.render(scope: ".highlight")
 crystal spec
 ----
 
-253 examples, 0 failures.
+404 examples, 0 failures.
 
 == License
 
