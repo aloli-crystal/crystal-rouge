@@ -9,7 +9,7 @@ link:README.fr.adoc[Version française]
 == Features
 
 * Tokenization engine (RegexLexer) with stack-based state machine
-* 39 language lexers
+* 119 language lexers
 * HTML formatter with CSS class names compatible with Rouge/Pygments
 * GitHub CSS theme included
 * Single-function API: `Rouge.highlight(code, "language")`
@@ -96,7 +96,7 @@ css = Rouge::Themes::Github.render(scope: ".highlight")
 crystal spec
 ----
 
-404 examples, 0 failures.
+564 examples, 0 failures.
 
 == License
 
