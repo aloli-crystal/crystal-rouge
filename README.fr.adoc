@@ -9,7 +9,7 @@ link:README.adoc[English version]
 == Fonctionnalités
 
 * Moteur de tokenisation (RegexLexer) avec machine à états à pile
-* 14 lexers de langages
+* 24 lexers de langages
 * Formatter HTML avec classes CSS compatibles Rouge/Pygments
 * Thème CSS GitHub inclus
 * API simple : `Rouge.highlight(code, "langage")`
@@ -23,16 +23,26 @@ link:README.adoc[English version]
 | C | `c`
 | Crystal | `crystal`
 | CSS | `css`
+| Diff | `diff`, `patch`
+| Dockerfile | `dockerfile`, `docker`
 | Go | `go`, `golang`
 | HTML | `html`
-| JSON | `json`
+| Java | `java`
 | JavaScript | `javascript`, `js`
+| JSON | `json`
+| Kotlin | `kotlin`, `kt`
+| Lua | `lua`
+| Makefile | `makefile`, `make`
+| Markdown | `markdown`, `md`
+| PHP | `php`
 | Python | `python`, `py`
 | Ruby | `ruby`, `rb`
 | Rust | `rust`, `rs`
 | SQL | `sql`
 | Shell/Bash | `shell`, `bash`, `sh`, `zsh`
+| TOML | `toml`
 | TypeScript | `typescript`, `ts`
+| XML | `xml`
 | YAML | `yaml`, `yml`
 |===
 
@@ -71,7 +81,7 @@ css = Rouge::Themes::Github.render(scope: ".highlight")
 crystal spec
 ----
 
-153 exemples, 0 échecs.
+253 exemples, 0 échecs.
 
 == Licence
 
