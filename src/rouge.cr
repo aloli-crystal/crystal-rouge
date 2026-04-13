@@ -5,7 +5,7 @@ require "./rouge/themes/github"
 require "./rouge/lexers/*"
 
 module Rouge
-  VERSION = "0.1.0"
+  VERSION = "4.7.0"
 
   # Version de la gem Ruby Rouge utilisée comme référence pour le portage.
   UPSTREAM_VERSION = "4.7.0"
