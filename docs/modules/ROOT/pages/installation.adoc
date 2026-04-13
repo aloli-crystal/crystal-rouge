@@ -1,0 +1,22 @@
+= Installation
+
+== Requirements
+
+* Crystal >= 1.19.0
+
+== Add the Dependency
+
+[source,yaml]
+----
+dependencies:
+  crystal-rouge:
+    github: aloli-crystal/crystal-rouge
+    version: "~> 0.1"
+----
+
+Then run:
+
+[source,bash]
+----
+shards install
+----

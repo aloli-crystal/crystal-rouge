@@ -1,0 +1,6 @@
+name: crystal-rouge
+title: 'Crystal Rouge'
+version: '4.7.0'
+nav:
+  - modules/ROOT/nav.adoc
+  - modules/fr/nav.adoc

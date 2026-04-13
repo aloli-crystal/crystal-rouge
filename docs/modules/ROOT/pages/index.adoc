@@ -1,0 +1,37 @@
+= Crystal Rouge
+
+Pure Crystal syntax highlighter, port of the https://github.com/rouge-ruby/rouge[Rouge] Ruby gem. Compatible with Pygments token types and Rouge CSS classes.
+
+== Features
+
+* Tokenization engine (RegexLexer) with stack-based state machine
+* 233 language lexers (full coverage of Rouge 4.7.0)
+* HTML formatter with CSS class names compatible with Rouge/Pygments
+* GitHub CSS theme included
+* Single-function API: `Rouge.highlight(code, "language")`
+
+== Supported Languages (excerpt)
+
+[cols="2,2"]
+|===
+| Language | Tag(s)
+
+| Crystal | `crystal`
+| Ruby | `ruby`, `rb`
+| Python | `python`, `py`
+| JavaScript | `javascript`, `js`
+| TypeScript | `typescript`, `ts`
+| Go | `go`, `golang`
+| Rust | `rust`, `rs`
+| Java | `java`
+| C | `c`
+| SQL | `sql`
+| YAML | `yaml`, `yml`
+| Shell/Bash | `shell`, `bash`, `sh`
+|===
+
+233 languages supported in total.
+
+== License
+
+MIT

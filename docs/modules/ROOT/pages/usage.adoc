@@ -1,0 +1,35 @@
+= Usage
+
+== Quick Start
+
+[source,crystal]
+----
+require "rouge"
+
+# Highlight code to HTML
+html = Rouge.highlight("SELECT * FROM users", "sql")
+----
+
+== Step by Step
+
+[source,crystal]
+----
+require "rouge"
+
+# Find a lexer
+lexer  = Rouge::RegexLexer.find("crystal").not_nil!
+tokens = lexer.lex("puts \"Hello, World!\"")
+html   = Rouge::Formatters::HTML.new.format_wrapped(tokens)
+
+# Get CSS for the GitHub theme
+css = Rouge::Themes::Github.render(scope: ".highlight")
+----
+
+== Tests
+
+[source,bash]
+----
+crystal spec
+----
+
+792 examples, 0 failures.
