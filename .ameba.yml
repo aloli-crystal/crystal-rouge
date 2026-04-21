@@ -45,3 +45,9 @@ Lint/UnusedBlockArgument:
 
 Performance/MinMaxAfterMap:
   Enabled: false
+
+Documentation/DocumentationAdmonition:
+  Enabled: false
+
+Naming/PredicateName:
+  Enabled: false
