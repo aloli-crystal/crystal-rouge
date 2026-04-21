@@ -411,7 +411,7 @@ describe Rouge::Lexers::Terraform do
 
   it "tokenizes string interpolation" do
     lexer = Rouge::Lexers::Terraform.new
-    tokens = lexer.lex(%("prefix-\${var.name}"))
+    tokens = lexer.lex(%("prefix-${var.name}"))
     tokens.any? { |tok, _| tok == Rouge::Tokens::StrInterpol }.should be_true
   end
 
@@ -457,7 +457,7 @@ describe Rouge::Lexers::Terraform do
       count         = 3
 
       tags = {
-        Name = "web-\${var.name}"
+        Name = "web-${var.name}"
       }
     }
 

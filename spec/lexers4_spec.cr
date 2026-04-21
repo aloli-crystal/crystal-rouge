@@ -310,14 +310,14 @@ describe Rouge::Lexers::Kotlin do
 
   it "tokenizes strings with interpolation" do
     lexer = Rouge::Lexers::Kotlin.new
-    tokens = lexer.lex(%("hello \${name}"))
+    tokens = lexer.lex(%("hello ${name}"))
     tokens.any? { |tok, _| tok == Rouge::Tokens::StrDouble }.should be_true
     tokens.any? { |tok, _| tok == Rouge::Tokens::StrInterpol }.should be_true
   end
 
   it "tokenizes raw strings" do
     lexer = Rouge::Lexers::Kotlin.new
-    tokens = lexer.lex(%(val s = \"\"\"\nraw string\n\"\"\"))
+    tokens = lexer.lex(%(val s = """\nraw string\n"""))
     tokens.any? { |tok, _| tok == Rouge::Tokens::StrDouble }.should be_true
   end
 
@@ -360,7 +360,7 @@ describe Rouge::Lexers::Kotlin do
     @JvmStatic
     fun main(args: Array<String>) {
         val x: Int = 42
-        val msg = "Hello, \${args[0]}!"
+        val msg = "Hello, ${args[0]}!"
         println(msg)
     }
     KT
