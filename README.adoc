@@ -1,4 +1,4 @@
-= crystal-rouge
+= rouge
 :toc: left
 :toclevels: 2
 
@@ -66,9 +66,9 @@ link:README.fr.adoc[Version française]
 [source,yaml]
 ----
 dependencies:
-  crystal-rouge:
-    github: aloli-crystal/crystal-rouge
-    version: "~> 0.1"
+  rouge:
+    github: aloli-crystal/rouge
+    version: "~> 4.7.0.3"
 ----
 
 == Usage

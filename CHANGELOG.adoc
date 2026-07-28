@@ -3,6 +3,11 @@
 :toc-title: Versions
 :toclevels: 2
 
+== v4.7.0.3 — 2026-07-28
+
+* Rename the shard `crystal-rouge` → `rouge` (drop the `crystal-` prefix; the `aloli-crystal` org already carries the "Crystal" context). The `Rouge` module and public API are unchanged.
+* Remove the redundant entry-point shim `src/crystal-rouge.cr`; `src/rouge.cr` is now the shard entry point resolved by `require "rouge"`.
+
 == v4.7.0.1 — 2026-04-22
 
 * Add the *ameba* linter to the CI pipeline with a shared `.ameba.yml` config aligned with the Crystal ecosystem.

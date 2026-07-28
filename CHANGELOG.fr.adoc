@@ -3,6 +3,11 @@
 :toc-title: Versions
 :toclevels: 2
 
+== v4.7.0.3 — 2026-07-28
+
+* Renommage du shard `crystal-rouge` → `rouge` (abandon du préfixe `crystal-` ; l'org `aloli-crystal` porte déjà le contexte « Crystal »). Le module `Rouge` et l'API publique sont inchangés.
+* Suppression du shim d'entrée redondant `src/crystal-rouge.cr` ; `src/rouge.cr` devient le point d'entrée du shard résolu par `require "rouge"`.
+
 == v4.7.0.1 — 2026-04-22
 
 * Ajout du linter *ameba* à la CI avec configuration `.ameba.yml` partagée alignée sur l'écosystème Crystal.

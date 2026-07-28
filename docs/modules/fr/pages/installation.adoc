@@ -9,9 +9,9 @@
 [source,yaml]
 ----
 dependencies:
-  crystal-rouge:
-    github: aloli-crystal/crystal-rouge
-    version: "~> 0.1"
+  rouge:
+    github: aloli-crystal/rouge
+    version: "~> 4.7.0.3"
 ----
 
 Puis lancez :
